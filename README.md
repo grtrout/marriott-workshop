@@ -68,13 +68,13 @@ This workshop is perfect for those looking to get started with Confluent Cloud a
 <br>
 
 1. Create a Confluent Cloud Account.
-    - Please make sure that you are able to successfully login to Confluent Cloud before the workshop.
+    - Please make sure that you are able to successfully log in to Confluent Cloud before the workshop.
 > **Note:** You will create resources during this workshop that will incur costs. Please make sure that you monitor resource usage to stay within the credits offered for this workshop and POC evaluation. 
 
 
-## <a name="step-1"></a>Log into Confluent Cloud
+## <a name="step-1"></a>Log in to Confluent Cloud
 
-1. Log into [Confluent Cloud](https://confluent.cloud) and enter your email and password.
+1. Log in to [Confluent Cloud](https://confluent.cloud) and enter your email and password.
 
 <div align="center" padding=25px>
     <img src="images/login.png" width=50% height=50%>
