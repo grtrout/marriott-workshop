@@ -145,16 +145,16 @@ An environment contains clusters and its deployed components such as Connectors,
 
 2. Click on **Cluster Settings**. This is where you can find your *Cluster ID, Bootstrap Server, Cloud Details, Cluster Type,* and *Capacity Limits*.
 3. On the same navigation menu, select **Topics** and click **Create Topic**. 
-4. Enter **users_topic** as the topic name, **1** as the number of partitions, and then click **Create with defaults**. 
+4. Enter `users_topic` as the topic name, **1** as the number of partitions, and then click **Create with defaults**. 
 
 <div align="center" padding=25px>
     <img src="images/create-topic.png" width=50% height=50%>
 </div>
 
-5. Repeat the previous step and create a second topic name **stocks_topic** and **1** as the number of partitions. 
+5. Repeat the previous step and create a second topic name `stocks_topic` and **1** as the number of partitions. 
 
 > **Note:** Topics have many configurable parameters. A complete list of those configurations for Confluent Cloud can be found [here](https://docs.confluent.io/cloud/current/using/broker-config.html). If you are interested in viewing the default configurations, you can view them in the Topic Summary on the right side. 
-
+6.  Create one more topic for something we will work on later in the lab. Name it `dbserver1.inventory.customers` and give it **1** partition.
 6. After topic creation, the **Topics UI** allows you to monitor production and consumption throughput metrics and the configuration parameters for your topics. When you begin sending messages to Confluent Cloud, you will be able to view those messages and message schemas.
 7. Below is a look at the topic, **users_topic**, but you need to send data to this topic before you see any metrics.
 
@@ -166,8 +166,8 @@ An environment contains clusters and its deployed components such as Connectors,
 
 ## <a name="step-5"></a>Create an API Key Pair
 
-1. Select **API Access** on the navigation menu. 
-2. A key pair has already been created for the ksqlDB application you created in *Step 3*. Select **+ Add Key** to create another key pair. 
+1. Select **API Keys** on the navigation menu (in the **Cluster Overview** section). 
+2. A key pair has already been created for the ksqlDB application you created in *Step 3*. Select **+ Add key** to create another key pair. 
 
 <div align="center" padding=25px>
     <img src="images/create-key.png" width=75% height=75%>
@@ -200,23 +200,24 @@ The next step is to produce sample data using the Datagen Source connector. You 
 | api secret                         | [*from step 5* ](#step-5)    |
 | topic                              | users_topic                  |
 | output message format              | JSON                         |
-| quickstart                         | USERS                        |
+| template                           | Users                        |
 | max interval between messages (ms) | 1000                         |
 | tasks                              | 1                            |
 </div>
 
 <br>
 
-3. Click on **Next**.
-4. Before launching the connector, you should see something similar to the following. If everything looks similar, select **Launch**. 
+3. Click on **Continue**.
+4. Next you will be asked to select the maximum number of tasks for the connector. For this lab, select **1**. Click **Continue**.
+5. Before launching the connector, you should see something similar to the following. If everything looks similar, select **Continue**. 
 
 <div align="center" padding=25px>
     <img src="images/add-datagen-conn.png" width=50% height=50%>
 </div>
 
-5. Next, create the second connector that will send data to **stocks_topic**. Click on **+ Add Connector** and then the **datagen Source** icon again. 
+6. Next, create the second connector that will send data to **stocks_topic**. Click on **+ Add Connector** and then the **datagen Source** icon again. 
 
-6. Enter the following configuration details. The remaining fields can be left blank. 
+7. Enter the following configuration details. The remaining fields can be left blank. 
 
 <div align="center">
 
@@ -227,14 +228,14 @@ The next step is to produce sample data using the Datagen Source connector. You 
 | api secret                         | [*from step 5* ](#step-5)    |
 | topic                              | stocks_topic                 |
 | output message format              | JSON                         |
-| quickstart                         | STOCKS                       |
+| quickstart                         | Stock trades                       |
 | max interval between messages (ms) | 1000                         |
 | tasks                              | 1                            |
 </div>
 
 <br> 
 
-7. Review the output again and then select **Launch**.
+7. Review the output again and then select **Continue**.
 
 > **Note:** It may take a few moments for the connectors to launch. Check the status and when both are ready, the status should show *running*. <br> <div align="center"><img src="images/running-connectors.png" width=75% height=75%></div>
 
@@ -394,7 +395,7 @@ SELECT * FROM STOCKS_ENRICHED EMIT CHANGES;
     <img src="images/stocks-enriched-topic.png" width=75% height=75%>
 </div>
 
-5. Navigate to **Consumers** on the left hand menu and find the group that corresponds with your **STOCKS_ENRICHED** stream. See the screenshot below as an example. This view shows how well your persistent query is keeping up with the incoming data. You can monitor the consumer lag, current and end offsets, and which topics it is consuming from.
+5. Click on **Clients** on the left hand menu, then navigate to the **Consumer Lag** to find group that corresponds with your **STOCKS_ENRICHED** stream. See the screenshot below as an example. This view shows how well your persistent query is keeping up with the incoming data. You can monitor the consumer lag, current and end offsets, and which topics it is consuming from.
 
 <div align="center">
     <img src="images/ksql-consumer.png" width=75% height=75%>
@@ -406,7 +407,7 @@ SELECT * FROM STOCKS_ENRICHED EMIT CHANGES;
 
 ksqlDB supports several aggregate functions, like `COUNT` and `SUM`, and you can use these to build stateful aggregates on streaming data. In this step, you will walk through some key examples on different ways you can aggregate your data.
 
-1. First, aggregate the data by counting buys and sells of stocks. Navigate back to the Editor and paste the following query to create a new table named **number_of_times_stock_bought**.
+1. First, aggregate the data by counting buys and sells of stocks. Navigate back to the ksqlDB Editor and paste the following query to create a new table named **number_of_times_stock_bought**.
 
 ```sql
 CREATE TABLE number_of_times_stock_bought AS
@@ -508,7 +509,7 @@ SELECT * FROM ACCOUNTS_TO_MONITOR EMIT CHANGES;
 
 Building on our Fraud Detection example from the last step, let’s say our fraud service wants to check on high frequency accounts. The fraud service can send a pull query via the ksql API, today we will just mock it with the UI. Then we can monitor the activity for a suspicious account. 
 
-1. First we need to add a property to our query. Pull queries only filter by the primary key by default. To filter by other fields, we need to enable table scans. You can add a property under the auto.offset.reset one already included. You will need to set ksql.query.pull.table.scan.enabled to true
+1. First we need to add a property to our query. Pull queries only filter by the primary key by default. To filter by other fields, we need to enable table scans. You can add a property under the auto.offset.reset one already included. You will need to set `ksql.query.pull.table.scan.enabled` to `true`
 
 <div align="center">
     <img src="images/table-scan-true.png" width=50% height=50%>
@@ -542,14 +543,14 @@ You will be exploring Confluent Cloud Schema Registry in more detail towards the
       <img src="images/sr-cluster.png" width=75% height=75%>
   </div>
 
-2. Click on **Schema Registry**. Select your cloud provider and region, and then click on **Enable Schema Registry**.
+2. To the far right, find your environment's Stream Governance section. Click **enable now**, select a Stream Governance package, and click **Begin configuration**. Finally, select your cloud provider and region, and then click on **Enable**.
   <div align="center">
       <img src="images/sr-tab.png" width=75% height=75%>
   </div>
 
-3. Next, you will create an API Key for Schema Registry. From here, click on the Edit icon under **API credentials**.
-4. Click on **Add key** and save your API key and secret - you will also need these during the workshop. Click on **Done**.
-5. **Important**: Make note of the **API endpoint**. You will use this endpoint in one of the steps later in the workshop.
+3. Next, you will create an API Key for Schema Registry. In your environment,  again navigate to the Stream Governance section and look for the Stream Governance API's **Credentials** subsection.
+4. Click on **Add key** and then **Create key** and save your API key and secret - you will also need these during the workshop.
+5. Make note of the **API endpoint**. You will use this endpoint in one of the steps later in the workshop. It can always be found in the Stream Governance section in your Confluent Cloud environment.
 
 ## <a name="step-13"></a>**Set up and Connect Self Managed Services to Confluent Cloud**
 
@@ -567,16 +568,16 @@ If you want to run a connector not yet available as fully-managed in Confluent C
 
 Now that you have completed setting up your Confluent Cloud account, cluster, topic, and Schema Registry, this next step will guide you how to configure a local Connect cluster backed by your cluster in Confluent Cloud that you created earlier. 
 
-1. Click on **Connectors**, and then click on **Self Managed**. 
+1. Once in your cluster, click on **Connectors**, click **Add Connector**, click on the **Deployment** filter, and select **Self managed**.
 
-    > **Note:** Self Managed connectors are installed on a local Connect cluster backed by a source cluster in Confluent Cloud. This Connect cluster will be hosted and managed by you, and Confluent will fully support it. 
+    > **Note:** Self managed connectors are installed on a local Connect cluster that integrates with your fully managed Kafka cluster in Confluent Cloud. The Connect cluster will be hosted and managed by you, and Confluent will fully support it. 
     
     <div align="center" padding=25px>
        <img src="images/connectors-self-managed.png" width=75% height=75%>
     </div>
 
-1. To begin setting up **Connect**, you should have already cloned the repository during the Prerequisites step. If you have not, start by cloning Confluent's Commercial SE workshop repository.
-    > **Note:** This repository contains **all** of the workshops and workshop series led by Confluent's Commercial SE team. Be sure to navigate to the correct sub-directory to access the right content. 
+1. To begin setting up **Connect**, you will need to clone a different Confluent GitHub repository.
+    > **Note:** This repository contains other workshops and workshop series led by Confluent's Commercial SE team. Be sure to navigate to the correct sub-directory to access the right content. 
     ```bash
     # Clone Confluent's Commercial SE Workshop repo
     git clone https://github.com/confluentinc/commercial-workshops
@@ -653,7 +654,7 @@ You have seen and worked within the Confluent Cloud Dashboard in the previous st
 
     You will notice that the UI looks very similar to the Confluent Cloud dashboard. 
 
-2. Click on the cluster, then click on **Topics**, and you should notice the **dbserver1.inventory.customers** topic that you had created in Confluent Cloud in Step 3. This is your first confirmation that Control Center and local Connect cluster are successfully connected to Confluent Cloud.
+2. Click on the cluster, then click on **Topics**, and you should notice the **stocks_topic** and **users_topic** topics that you had created in Confluent Cloud earlier. This is your first confirmation that Control Center and the local Connect cluster are successfully connected to Confluent Cloud.
     
     <div align="center">
        <img src="images/c3-all-topics.png" width=50% height=50%>
@@ -734,16 +735,7 @@ In this final section of the workshop, you will explore Confluent Cloud Schema R
        <img src="images/cc-sr-compatibility.png" width=30% height=30%>
     </div>
 
-4. Return to your environment.
-
-5. Click on **Schema Registry** and edit the **Compatibility setting**. 
-
-    <div align="center">
-       <img src="images/cc-sr-settings.png" width=75% height=75%>
-    </div>
-
-6. Click on **View & Manage Schemas** to view a searchable list of all your schemas available in your Confluent Cloud environment.
-
+4. At any point, you can view and manage your schemas (including a searchable list of all your schemas) from your enviornment's **Stream Governance** page or by clicking **Schema Registry** on the left hand side of your cluster's page. Return to your environment.
 
 ## <a name="step-17"></a>Clean Up Resources
 
@@ -767,6 +759,7 @@ Deleting the resources you created during this workshop will prevent you from in
     <img src="images/delete-cluster.png" width=50% height=50%>
 </div>
 
+4. You may also stop and remove your local resoources by running `docker-compose down`.
 *** 
 
 ## <a name="step-18"></a>Confluent Resources and Further Testing
