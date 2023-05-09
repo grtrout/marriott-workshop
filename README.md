@@ -20,27 +20,32 @@ This workshop is perfect for those looking to get started with Confluent Cloud a
 
 
 ## Workshop Agenda - Day 1:
-
-| Topic |  Time  | Speaker |
-| --- |  ---  | --- |
-| Workshop Kickoff and Introductions|  8:00 - 8:30  | Marriott & Confluent |
-| Review Marriott Use Cases |  8:30 - 9:00  | Marriott team |
-| Break |  9:00-9:15  |  |
-| Hands on Workshop Demo |  9:15 - 10:00  | Ravi Appalla/Greg Trout - Confluent |
-| Workshop Environment Setup |  10:00 - 10:15  | Confluent and Marriott Team |
-| Hands on Workshop |  10:15 - 11:30  |  Confluent and Marriott Team  |
-| Streaming with Confluent and Cluster Linking | 11:30 - 12:00 | Joseph Morais, Staff Partner Solutions Engineer |
-| Wrap Up and Next Steps |  12:00 - 12:15  |  Confluent Team  |
-
-## Workshop Agenda - Day 2:
-
 | Topic | Time | Speaker |
 | --- | --- | --- |
-| Cluster Roll Out / Topology |  8:00 - 9:00  |  Dan Elliman - Confluent  |
-| Break |  9:00 - 9:15  |  |
-| Networking & Security |  9:15 - 10:00  |  Greg Trout - Confluent  |
-| Stream Lineage and Data Governance |  10:00 - 11:00  | Vahid Fereydouny, Product Manager  |
-| Q&A and Workshop wrap-up |  11:00 - 11:30  | Jim Lee / Greg Trout - Confluent |
+|Workshop Kickoff and Introductions|9:00 - 9:30|Marriott & Confluent|
+|Review Marriott Use Cases|9:30 - 10:00|Marriott team|
+|Break|10:00-10:15|
+|Hands on Workshop Demo|10:15 - 11:30|Greg Trout - Confluent|
+|Workshop Environment Setup|11:30 - 12:00|Confluent and Marriott Team|
+|Box Lunch|12:00- 12:30|
+|AWS & Confluent Cloud Security|12:30- 1:30|Joseph Morais, Staff Partner Engineer|
+|Hands on Workshop|1:30 - 2:30|Confluent and Marriott Team|
+|Private Networking|2:30 - 3:30|Sudarshan Pathalam, Staff Product Manager|
+|Streaming with Confluent and Cluster Linking vs. Stretch Cluster|3:30 - 4:30|Luke Knepper, Senior Product Manager|
+|Dinner Hosted by Confluent at Virraaj Restaurant|6:00- 9:00|
+
+
+## Workshop Agenda - Day 2:
+| Topic | Time | Speaker |
+| --- | --- | --- |
+|Stream Lineage and Data Governance|9:00 - 10:00|Vahid Fereydouny, Staff Product Manager|
+|Break / General QA / AMA |10:00 - 11:30|Gary Vidal / Greg Trout - Confluent|
+|Observability - Metric APIs, Cost API, Audit Logs, Proactive Alerting & Data Visibility|11:30 - 12:30|Dustin Cote, Senior Product Manager & Shubha Vijayasarathy, Staff Product Manager|
+|Working Box Lunch|
+|Connectors|12:30 - 1:30|Erick Lee, Senior Product Manager|
+|Terraform|1:30 - 2:30|Spencer Shumway, Senior Product Manager|Break|2:30 - 3:00|
+|Security - OAuth integration, RBAC|3:00 - 4:00|Anuj Sawani, Group Product Manager|
+|Q&A and Workshop wrap-up|4:00 - 4:45|Jim Lee / Greg Trout - Confluent|
 
 ## Topics Covered in the Demo and Workshop:
 1. [Log in to Confluent Cloud](#step-1)
