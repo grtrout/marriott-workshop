@@ -8,7 +8,7 @@
 
 # <div align="center">Marriott | Confluent Workshop repository</div>
 
-This repository contains workshop content for Marriott to be held on [TBD]. Content with the lab instructions and hands-on guide will be updated before the workshop. Please see below for the details of the workshop and agenda: 
+This repository contains workshop content for Marriott to be held on May 9 - May 10, 2023. Content with the lab instructions and hands-on guide will be updated before the workshop. Please see below for the details of the workshop and agenda: 
 
 ## Introduction
 
